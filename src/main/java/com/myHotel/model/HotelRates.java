@@ -1,6 +1,6 @@
 package com.myHotel.model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,14 +12,14 @@ public class HotelRates {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private long id;
 
 	private Guest guest;
-	private Date dataEntrada;
-	private Date dataSaida;
+	private LocalDateTime dataEntrada;
+	private LocalDateTime dataSaida;
 	private boolean adicionalVeiculo;
 
-	public HotelRates(Guest guest, Date dataEntrada, Date dataSaida, boolean adicionalVeiculo) {
+	public HotelRates(Guest guest, LocalDateTime dataEntrada, LocalDateTime dataSaida, boolean adicionalVeiculo) {
 		this.guest = guest;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
@@ -38,19 +38,19 @@ public class HotelRates {
 		this.guest = guest;
 	}
 
-	public Date getDataEntrada() {
+	public LocalDateTime getDataEntrada() {
 		return dataEntrada;
 	}
 
-	public void setDataEntrada(Date dataEntrada) {
+	public void setDataEntrada(LocalDateTime dataEntrada) {
 		this.dataEntrada = dataEntrada;
 	}
 
-	public Date getDataSaida() {
+	public LocalDateTime getDataSaida() {
 		return dataSaida;
 	}
 
-	public void setDataSaida(Date dataSaida) {
+	public void setDataSaida(LocalDateTime dataSaida) {
 		this.dataSaida = dataSaida;
 	}
 
