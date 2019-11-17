@@ -30,6 +30,10 @@ public class HotelRates {
 		// TODO Auto-generated constructor stub
 	}
 
+	public long getId() {
+		return id;
+	}
+
 	public Guest getGuest() {
 		return guest;
 	}

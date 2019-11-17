@@ -3,13 +3,23 @@ package com.myHotel.dto;
 import java.time.LocalDateTime;
 
 import com.myHotel.model.Guest;
+import com.myHotel.model.HotelRates;
 
 public class HotelRatesDTO {
 
+	private long id;
 	private Guest guest;
 	private LocalDateTime dataEntrada;
 	private LocalDateTime dataSaida;
 	private boolean adicionalVeiculo;
+
+	public HotelRatesDTO(HotelRates hotelRates) {
+		this.id = hotelRates.getId();
+		this.guest = hotelRates.getGuest();
+		this.dataEntrada = hotelRates.getDataEntrada();
+		this.dataSaida = hotelRates.getDataSaida();
+		this.adicionalVeiculo = hotelRates.isAdicionalVeiculo();
+	}
 
 	public HotelRatesDTO(Guest guest, LocalDateTime dataEntrada, LocalDateTime dataSaida, boolean adicionalVeiculo) {
 		this.guest = guest;
@@ -20,6 +30,10 @@ public class HotelRatesDTO {
 
 	public HotelRatesDTO() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public long getId() {
+		return id;
 	}
 
 	public Guest getGuest() {

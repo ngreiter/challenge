@@ -14,9 +14,9 @@ public class Guest {
 
 	private String nome;
 	private String telefone;
-	private Integer documento;
+	private String documento;
 
-	public Guest(String nome, String telefone, Integer documento) {
+	public Guest(String nome, String telefone, String documento) {
 		this.nome = nome;
 		this.telefone = telefone;
 		this.documento = documento;
@@ -46,11 +46,11 @@ public class Guest {
 		this.telefone = telefone;
 	}
 
-	public Integer getDocumento() {
+	public String getDocumento() {
 		return documento;
 	}
 
-	public void setDocumento(Integer documento) {
+	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 

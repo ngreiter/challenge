@@ -24,35 +24,36 @@ public class GuestController {
 	@Autowired
 	private GuestRepository guestRepository;
 
-	// ResponseEntity<Object>
-
 	@PutMapping("/guest/{id}")
-	public void updateGuest(@RequestBody Guest guest, @PathVariable long id) {
+	public ResponseEntity<?> updateGuest(@RequestBody Guest guest, @PathVariable long id) {
 		guestRepository.save(guest);
+		return ResponseEntity.ok().build();
 	}
 
 	@PostMapping("/guest")
-	public void addNewGuest(Guest guest) {
+	public ResponseEntity<?> addNewGuest(Guest guest) {
 		guestRepository.save(guest);
+		return ResponseEntity.ok().build();
 	}
 
 	@DeleteMapping("/guest/{id}")
-	public void deleteGuest(long id) {
+	public ResponseEntity<?> deleteGuest(long id) {
 		guestRepository.deleteById(id);
+		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/guest/{id}")
-	public GuestDTO getGuest(long id) {
+	public ResponseEntity<GuestDTO> getGuest(long id) {
 		Optional<Guest> guest = guestRepository.findById(id);
-		return new GuestDTO(guest.get());
+		return ResponseEntity.ok(new GuestDTO(guest.get()));
 	}
 
 	@GetMapping("/guest/all")
-	public List<GuestDTO> getAllGuest(long id) {
+	public ResponseEntity<List<GuestDTO>> getAllGuest(long id) {
 		List<GuestDTO> resultList = new ArrayList<>();
 		Iterable<Guest> guestsIterable = guestRepository.findAll();
 		guestsIterable.forEach(guest -> resultList.add(new GuestDTO(guest)));
-		return resultList;
+		return ResponseEntity.ok(resultList);
 	}
 
 }

@@ -9,33 +9,33 @@ import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.myHotel.dto.HotelRatesDTO;
 import com.myHotel.model.Guest;
-import com.myHotel.repository.HotelRatesRepository;
+import com.myHotel.model.HotelRates;
+import com.myHotel.repository.HotelRatesRepositoryImpl;
 import com.myHotel.utils.HotelPrices;
 
 public class HotelRatesService {
 
 	@Autowired
-	private HotelRatesRepository hotelRatesRepository;
+	private HotelRatesRepositoryImpl hotelRatesRepositoryImpl;
 
 	public int getTotalSpentValue(Guest guest) {
-		List<HotelRatesDTO> hotelRatesList = hotelRatesRepository.getAllHotelRatesByGuestId(guest.getId());
+		List<HotelRates> hotelRatesList = hotelRatesRepositoryImpl.getAllHotelRatesByGuestId(guest.getId());
 
 		int valor = 0;
-		for (HotelRatesDTO dto : hotelRatesList) {
-			valor += this.getFullHotelRateValue(dto);
+		for (HotelRates hotelRates : hotelRatesList) {
+			valor += this.getFullHotelRateValue(hotelRates);
 		}
 
 		return valor;
 	}
 
 	public int getLastSpentValue(Guest guest) {
-		HotelRatesDTO dto = hotelRatesRepository.getHotelRatesByGuestId(guest.getId());
-		return this.getFullHotelRateValue(dto);
+		HotelRates hotelRates = hotelRatesRepositoryImpl.getLastHotelRateByGuestId(guest.getId());
+		return this.getFullHotelRateValue(hotelRates);
 	}
 
-	private int getFullHotelRateValue(HotelRatesDTO dto) {
+	private int getFullHotelRateValue(HotelRates dto) {
 		LocalDateTime firstDay = dto.getDataEntrada();
 		LocalDateTime lastDay = dto.getDataSaida();
 		int value = 0;
@@ -65,7 +65,7 @@ public class HotelRatesService {
 		}
 
 		if (lastDay.getHour() > 16 || (lastDay.getHour() == 16 && lastDay.getMinute() >= 30)) {
-			DayOfWeek day = lastDay.getDayOfWeek();
+			DayOfWeek day = lastDay.getDayOfWeek().plus(1);
 			if (day.getValue() == 1 || day.getValue() == 7) {
 				value += HotelPrices.DIARIAESPECIAL.getValue();
 			} else {

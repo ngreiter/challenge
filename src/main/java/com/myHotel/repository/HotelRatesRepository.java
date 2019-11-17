@@ -1,19 +1,13 @@
 package com.myHotel.repository;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import com.myHotel.dto.HotelRatesDTO;
+import com.myHotel.model.Guest;
 
-public class HotelRatesRepository {
-
-	public List<HotelRatesDTO> getAllHotelRatesByGuestId(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public HotelRatesDTO getHotelRatesByGuestId(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+@Repository
+public interface HotelRatesRepository
+		extends CrudRepository<Guest, Long>, JpaRepository<Guest, Long>, HotelRatesRepositoryCustom {
 
 }
