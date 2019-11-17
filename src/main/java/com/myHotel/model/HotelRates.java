@@ -14,32 +14,32 @@ public class HotelRates {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
-	private Guest guest;
+	private Guest hospede;
 	private LocalDateTime dataEntrada;
 	private LocalDateTime dataSaida;
 	private boolean adicionalVeiculo;
 
 	public HotelRates(Guest guest, LocalDateTime dataEntrada, LocalDateTime dataSaida, boolean adicionalVeiculo) {
-		this.guest = guest;
+		this.hospede = guest;
 		this.dataEntrada = dataEntrada;
 		this.dataSaida = dataSaida;
 		this.adicionalVeiculo = adicionalVeiculo;
 	}
 
 	public HotelRates() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	public long getId() {
 		return id;
 	}
 
-	public Guest getGuest() {
-		return guest;
+	public Guest getHospede() {
+		return hospede;
 	}
 
-	public void setGuest(Guest guest) {
-		this.guest = guest;
+	public void setHospede(Guest guest) {
+		this.hospede = guest;
 	}
 
 	public LocalDateTime getDataEntrada() {

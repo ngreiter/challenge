@@ -16,26 +16,16 @@ import com.myHotel.model.Guest;
 @Repository
 public class GuestRepositoryImpl implements GuestRepositoryCustom {
 
-	EntityManager em;
+	private EntityManager em;
 
 	@Override
-	public List<Guest> findGuestByNameOrTelefoneOrDocumento(String nome, String telefone, String documento) {
+	public List<Guest> findGuestByNameOrTelefoneOrDocumento(String variableName, String value) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Guest> cq = cb.createQuery(Guest.class);
 
 		Root<Guest> guest = cq.from(Guest.class);
 		List<Predicate> predicateList = new ArrayList<>();
-		if (!nome.isEmpty()) {
-			predicateList.add(cb.equal(guest.get("nome"), nome));
-		}
-
-		if (!documento.isEmpty()) {
-			predicateList.add(cb.equal(guest.get("documento"), documento));
-		}
-
-		if (!telefone.isEmpty()) {
-			predicateList.add(cb.equal(guest.get("telefone"), telefone));
-		}
+		predicateList.add(cb.equal(guest.get(variableName), value));
 		cq.where(predicateList.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList();

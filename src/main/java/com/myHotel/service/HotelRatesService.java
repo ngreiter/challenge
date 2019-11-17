@@ -3,12 +3,14 @@ package com.myHotel.service;
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.myHotel.dto.GuestDTO;
 import com.myHotel.model.Guest;
 import com.myHotel.model.HotelRates;
 import com.myHotel.repository.HotelRatesRepositoryImpl;
@@ -19,6 +21,27 @@ public class HotelRatesService {
 	@Autowired
 	private HotelRatesRepositoryImpl hotelRatesRepositoryImpl;
 
+	public List<GuestDTO> buildGuestDTOList(List<HotelRates> hotelRatesList) {
+		List<GuestDTO> dtoList = new ArrayList<>();
+		hotelRatesList.forEach(hotelRate -> dtoList.add(new GuestDTO(//
+				hotelRate.getHospede(), //
+				getTotalSpentValue(hotelRate.getHospede()), //
+				getLastSpentValue(hotelRate.getHospede()) //
+		)));
+		return dtoList;
+	}
+
+	public GuestDTO buildGuestDTOSingle(List<Guest> guestList) {
+		Guest guest = guestList.get(0);
+		GuestDTO dto = new GuestDTO(guest, //
+				getTotalSpentValue(guest), //
+				getLastSpentValue(guest) //
+		);
+		return dto;
+	}
+
+	// o "valor total gasto" não especifica se é de só uma estadia
+	// portanto fiz para buscar todos as estadias que estejam no nome hóspede
 	public int getTotalSpentValue(Guest guest) {
 		List<HotelRates> hotelRatesList = hotelRatesRepositoryImpl.getAllHotelRatesByGuestId(guest.getId());
 

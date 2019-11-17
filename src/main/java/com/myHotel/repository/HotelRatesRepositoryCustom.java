@@ -12,4 +12,6 @@ public interface HotelRatesRepositoryCustom {
 
 	List<HotelRates> findHotelRatesByGuestInHotel();
 
+	List<HotelRates> findHotelRatesByGuestOutHotel();
+
 }

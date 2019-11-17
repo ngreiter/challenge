@@ -14,7 +14,7 @@ import com.myHotel.model.HotelRates;
 
 public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
-	EntityManager em;
+	private EntityManager em;
 
 	@Override
 	public List<HotelRates> findHotelRatesByGuestInHotel() {
@@ -23,10 +23,21 @@ public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
 		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
 		List<Predicate> predicateList = new ArrayList<>();
-
 		predicateList.add(cb.greaterThanOrEqualTo(hotelRates.get("dataEntrada"), LocalDateTime.now()));
-		predicateList.add(cb.lessThanOrEqualTo(hotelRates.get("endDate"), LocalDateTime.now()));
+		predicateList.add(cb.lessThanOrEqualTo(hotelRates.get("dataSaida"), LocalDateTime.now()));
+		cq.where(predicateList.toArray(new Predicate[0]));
 
+		return em.createQuery(cq).getResultList();
+	}
+
+	@Override
+	public List<HotelRates> findHotelRatesByGuestOutHotel() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<HotelRates> cq = cb.createQuery(HotelRates.class);
+
+		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
+		List<Predicate> predicateList = new ArrayList<>();
+		predicateList.add(cb.greaterThanOrEqualTo(hotelRates.get("dataSaida"), LocalDateTime.now()));
 		cq.where(predicateList.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList();
@@ -34,14 +45,28 @@ public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
 	@Override
 	public List<HotelRates> getAllHotelRatesByGuestId(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<HotelRates> cq = cb.createQuery(HotelRates.class);
+
+		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
+		List<Predicate> predicateList = new ArrayList<>();
+		predicateList.add(cb.equal(hotelRates.get("hospede.id"), id));
+		cq.where(predicateList.toArray(new Predicate[0]));
+
+		return em.createQuery(cq).getResultList();
 	}
 
 	@Override
 	public HotelRates getLastHotelRateByGuestId(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<HotelRates> cq = cb.createQuery(HotelRates.class);
+
+		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
+		List<Predicate> predicateList = new ArrayList<>();
+		predicateList.add(cb.equal(hotelRates.get("hospede.id"), id));
+		cq.where(predicateList.toArray(new Predicate[0]));
+
+		return em.createQuery(cq).getResultList().get(0);
 	}
 
 }

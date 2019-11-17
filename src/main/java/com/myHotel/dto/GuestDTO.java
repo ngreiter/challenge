@@ -9,11 +9,17 @@ public class GuestDTO {
 	private String telefone;
 	private String documento;
 
-	public GuestDTO(Guest guest) {
+	private int valorTotal = 0;
+	private int valorUltimaHospedagem = 0;
+
+	public GuestDTO(Guest guest, int valorTotal, int valorUltimaHospedagem) {
 		this.id = guest.getId();
 		this.nome = guest.getNome();
 		this.telefone = guest.getTelefone();
 		this.documento = guest.getDocumento();
+
+		this.valorTotal = valorTotal;
+		this.valorUltimaHospedagem = valorUltimaHospedagem;
 	}
 
 	public GuestDTO(long id, String nome, String telefone, String documento) {
@@ -55,4 +61,19 @@ public class GuestDTO {
 		this.documento = documento;
 	}
 
+	public int getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(int valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public int getValorUltimaHospedagem() {
+		return valorUltimaHospedagem;
+	}
+
+	public void setValorUltimaHospedagem(int valorUltimaHospedagem) {
+		this.valorUltimaHospedagem = valorUltimaHospedagem;
+	}
 }

@@ -1,6 +1,7 @@
 package com.myHotel.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.myHotel.dto.GuestDTO;
 import com.myHotel.model.Guest;
 import com.myHotel.repository.GuestRepository;
+import com.myHotel.service.HotelRatesService;
 
 @Controller
 public class GuestController {
 
 	@Autowired
 	private GuestRepository guestRepository;
+
+	@Autowired
+	private HotelRatesService hotelRatesService;
 
 	@PutMapping("/guest/{id}")
 	public ResponseEntity<?> updateGuest(@RequestBody Guest guest, @PathVariable long id) {
@@ -45,14 +50,14 @@ public class GuestController {
 	@GetMapping("/guest/{id}")
 	public ResponseEntity<GuestDTO> getGuest(long id) {
 		Optional<Guest> guest = guestRepository.findById(id);
-		return ResponseEntity.ok(new GuestDTO(guest.get()));
+		return ResponseEntity.ok(hotelRatesService.buildGuestDTOSingle(Arrays.asList(guest.get())));
 	}
 
 	@GetMapping("/guest/all")
 	public ResponseEntity<List<GuestDTO>> getAllGuest(long id) {
 		List<GuestDTO> resultList = new ArrayList<>();
 		Iterable<Guest> guestsIterable = guestRepository.findAll();
-		guestsIterable.forEach(guest -> resultList.add(new GuestDTO(guest)));
+		guestsIterable.forEach(guest -> resultList.add(hotelRatesService.buildGuestDTOSingle(Arrays.asList(guest))));
 		return ResponseEntity.ok(resultList);
 	}
 
