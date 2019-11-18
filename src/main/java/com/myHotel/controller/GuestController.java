@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,14 +28,14 @@ public class GuestController {
 	@Autowired
 	private HotelRatesService hotelRatesService;
 
-	@PutMapping("/guest/{id}")
-	public ResponseEntity<?> updateGuest(@RequestBody Guest guest, @PathVariable long id) {
+	@PostMapping("/guest")
+	public ResponseEntity<?> addNewGuest(@RequestBody Guest guest) {
 		guestRepository.save(guest);
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/guest")
-	public ResponseEntity<?> addNewGuest(Guest guest) {
+	@PutMapping("/guest")
+	public ResponseEntity<?> updateGuest(@RequestBody Guest guest) {
 		guestRepository.save(guest);
 		return ResponseEntity.ok().build();
 	}

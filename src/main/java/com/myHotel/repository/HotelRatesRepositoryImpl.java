@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -14,6 +15,7 @@ import com.myHotel.model.HotelRates;
 
 public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
+	@PersistenceContext
 	private EntityManager em;
 
 	@Override
@@ -50,7 +52,7 @@ public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
 		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
 		List<Predicate> predicateList = new ArrayList<>();
-		predicateList.add(cb.equal(hotelRates.get("hospede.id"), id));
+		predicateList.add(cb.equal(hotelRates.get("hospede"), id));
 		cq.where(predicateList.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList();
@@ -63,7 +65,7 @@ public class HotelRatesRepositoryImpl implements HotelRatesRepositoryCustom {
 
 		Root<HotelRates> hotelRates = cq.from(HotelRates.class);
 		List<Predicate> predicateList = new ArrayList<>();
-		predicateList.add(cb.equal(hotelRates.get("hospede.id"), id));
+		predicateList.add(cb.equal(hotelRates.get("hospede"), id));
 		cq.where(predicateList.toArray(new Predicate[0]));
 
 		return em.createQuery(cq).getResultList().get(0);

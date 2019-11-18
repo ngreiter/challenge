@@ -30,6 +30,10 @@ public class Guest {
 		return id;
 	}
 
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

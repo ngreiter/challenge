@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.myHotel.model.Guest;
+import com.myHotel.model.HotelRates;
 
 @Repository
 public interface HotelRatesRepository
-		extends CrudRepository<Guest, Long>, JpaRepository<Guest, Long>, HotelRatesRepositoryCustom {
+		extends CrudRepository<HotelRates, Long>, JpaRepository<HotelRates, Long>, HotelRatesRepositoryCustom {
 
 }

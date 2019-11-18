@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class HotelRates {
@@ -14,6 +15,7 @@ public class HotelRates {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 
+	@ManyToOne
 	private Guest hospede;
 	private LocalDateTime dataEntrada;
 	private LocalDateTime dataSaida;

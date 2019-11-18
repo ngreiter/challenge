@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.myHotel.dto.GuestDTO;
 import com.myHotel.model.Guest;
@@ -16,12 +17,16 @@ import com.myHotel.model.HotelRates;
 import com.myHotel.repository.HotelRatesRepositoryImpl;
 import com.myHotel.utils.HotelPrices;
 
+@Service
 public class HotelRatesService {
 
 	@Autowired
 	private HotelRatesRepositoryImpl hotelRatesRepositoryImpl;
 
 	public List<GuestDTO> buildGuestDTOList(List<HotelRates> hotelRatesList) {
+		if (hotelRatesList.isEmpty())
+			return null;
+
 		List<GuestDTO> dtoList = new ArrayList<>();
 		hotelRatesList.forEach(hotelRate -> dtoList.add(new GuestDTO(//
 				hotelRate.getHospede(), //
@@ -32,6 +37,9 @@ public class HotelRatesService {
 	}
 
 	public GuestDTO buildGuestDTOSingle(List<Guest> guestList) {
+		if (guestList.isEmpty())
+			return null;
+
 		Guest guest = guestList.get(0);
 		GuestDTO dto = new GuestDTO(guest, //
 				getTotalSpentValue(guest), //

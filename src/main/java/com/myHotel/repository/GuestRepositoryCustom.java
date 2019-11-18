@@ -6,6 +6,6 @@ import com.myHotel.model.Guest;
 
 public interface GuestRepositoryCustom {
 
-	List<Guest> findGuestByNameOrTelefoneOrDocumento(String variableName, String value);
+	List<Guest> findGuestByNameOrTelefoneOrDocumento(String nome, String documento, String telefone);
 
 }
